@@ -1,6 +1,7 @@
 # JStutor
 This repository is for personal usage mainly for educational purposes.
 *There is gonna be some additional information for better understanding of javascript.*
+I'll provide links to useful resources in this README.md
 <details>
 <summary>Data Types</summary>
 <br>
@@ -60,7 +61,7 @@ if we use **this** in a strict mode **this** still refers to Global Object.
 
 <details>
 <summary>
-
+Data Structures in JavaScript
 
 </summary>
 
