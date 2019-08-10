@@ -185,14 +185,14 @@ for(let tmp in userListNotSorted){
  Object.assign(person, genderM);
 
  for(let i in person){
-     alert(i + " in person");
+    console.log(i + " in person");
  }
  // we can use assign for clonning purposes
 
  let personSecondClone = Object.assign({},person);
 
  for(let i in person) {
-     alert(i + " in personSecondClone");
+    console.log(i + " in personSecondClone");
  }
 
   

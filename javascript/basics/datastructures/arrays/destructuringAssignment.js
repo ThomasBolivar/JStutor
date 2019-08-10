@@ -6,8 +6,8 @@ let arr = ["Ilya", "Kantor"]
 // and surname = arr[1]
 let [firstName, surname] = arr;
 
-alert(firstName); // Ilya
-alert(surname);  // Kantor
+console.log(firstName); // Ilya
+console.log(surname);  // Kantor
 
 let [firstName, surname] = "Ilya Kantor".split(' ');
 /*Ignore elements using commas

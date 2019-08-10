@@ -16,10 +16,10 @@
  /** Now we declaired a constructor and we can assign it to object */
 let user = new User("John",23);
 for(let i in user){
-    alert(i + " inside user, created via constructor");
+  console.log(i + " inside user, created via constructor");
 
 }
-alert(user.isUser);
+console.log(user.isUser);
 
 // we can also declaire constructor via functions like this: 
 
@@ -27,7 +27,7 @@ let anotherUser = new function(){
     this.name = "Denis";
     this.age = 23;
     this.isAdmin = true;
-    alert(new.target);
+    console.log(new.target);
 };
 // but we cannot reuse it, cuz this function is not saved
 
@@ -37,7 +37,7 @@ function AnotherUser(){
     return{name : "Den"};
 
 }
-alert(new AnotherUser().name);
+console.log(new AnotherUser().name);
 
 // we can skip () after new cuz there is no arguments:  let user = new User;
 
@@ -60,8 +60,8 @@ function Calculator() {
   let calculator = new Calculator();
   calculator.read();
   
-  alert( "Sum=" + calculator.sum() );
-  alert( "Mul=" + calculator.mul() );
+  console.log( "Sum=" + calculator.sum() );
+  console.log( "Mul=" + calculator.mul() );
 
   // we can store functions inside objects
 

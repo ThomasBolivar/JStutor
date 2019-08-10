@@ -35,12 +35,12 @@ let range = {
 
 let str = 'Hello ';
 for (let char of str) {
-    alert( char ); 
+  console.log( char ); 
 }
 
 let string = "Something";
 for(let char of string){
-    alert(char); // every character of string
+  console.log(char); // every character of string
 }
 
 //we can call iterator like this:
@@ -48,11 +48,11 @@ let strs = "Hello";
 
 // same as
 // for (let char of str) console.log(char);
-alert("using iterator internally");
+console.log("using iterator internally");
 let iterator = str[Symbol.iterator]();
 
 while (true) {
   let result = iterator.next();
   if (result.done) break;
-  alert(result.value); // showing charaters one by one
+  console.log(result.value); // showing charaters one by one
 }

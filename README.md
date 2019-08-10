@@ -31,7 +31,9 @@ In an event, this refers to the element that received the event.
 Methods like call(), and apply() can refer this to any object.
 
 <br>
+
 **this in a Method**
+
 In an object method, this refers to the "owner" of the method.
 
 In the example on the top of this page, this refers to the person object.

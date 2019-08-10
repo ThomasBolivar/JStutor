@@ -7,8 +7,8 @@ let somebool = true;
 let somebool2 = false;
 
 let isGreaterthen = 4>1;
-alert(string3);
-alert("Boolean test: is 4 greater then 1? " + isGreaterthen);
+console.log(string3);
+console.log("Boolean test: is 4 greater then 1? " + isGreaterthen);
 
 // null signifies that there is nothing inside age variable, empty.
 let age = null;
@@ -17,10 +17,10 @@ let age = null;
 
 let xs;
 
-alert(xs);
+console.log(xs);
 //You can assign undefined to variable, but better not to do that! EVER!
 let x = undefined;
-alert(x);
+console.log(x);
 
 /**
  * Typically, null is used to assign a variable an “empty” or “unknown” value, and undefined to check whether a variable has been assigned.
@@ -29,19 +29,19 @@ alert(x);
  // You can chect the type of variable/object like that:
 
 
- alert(typeof 0); // number
+ console.log(typeof 0); // number
 
- alert(typeof "string"); // string 
+ console.log(typeof "string"); // string 
 
- alert(typeof true);
+ console.log(typeof true);
 
  number = String(number); // now it's not number, String is here :)
 
- alert(typeof number);
+ console.log(typeof number);
 
  // use Number to Cast String to number. More then that you can cast like that "3"/"1" will cast to 3
 
- alert("6"/"2");
+ console.log("6"/"2");
 
  // you will get an exception here: alert (Number("123z"))
 
