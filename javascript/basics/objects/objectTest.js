@@ -3,15 +3,23 @@ const person = Object.create({
     
 
 },{
-    name:{
+    _name:{
         value: "Denis",
         enumerable: true, // can be iterable through
         writable:false, // can't rewrite age
         configurable:false, // can't delete age
     },
-    birthDate:{
+
+    get name() {
+        return this._name;
+      },
+
+    _birthDate:{
         value:1996,
         enumerable:true,
+    },
+    get birthDate(){
+        return this._birthDate;
     },
     age:{
         get(){
