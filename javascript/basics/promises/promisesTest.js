@@ -20,6 +20,7 @@ const promise = new Promise((resolve,reject)=>{
                 status: 200
             }
             resolve(backendData);
+            console.log(promise);
            
 
         },2000);
