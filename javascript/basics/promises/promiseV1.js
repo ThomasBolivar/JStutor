@@ -5,18 +5,19 @@
  */
 
 const  PENDING = 'PENDING';
-const  RESOLVED = 'RESOLVED'
+const  RESOLVED = 'RESOLVED';
 
-function MyPromise(promiseFunction) {
-var state = PENDING;
+function MyPromise(executor) {
+let  state = PENDING;
+let value;
+function resolve (newValue ){
+    state = RESOLVED;
+    value = newValue;
+    return new MyPromise(resolve())
+}
+executor(resolve);
 }
 
-function resolve(newValue) {
-
-        state = ‘resolved’;
-        value = newValue;
-
-    }
 
 
 console.log("Start");
