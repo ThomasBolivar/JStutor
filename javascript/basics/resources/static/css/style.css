@@ -1,0 +1,79 @@
+body {
+
+    color: #8f8f8f;
+    font: 12px Tahoma, sans-serif;
+    background: bisque;
+    border-top: 5px solid #5f5f5f;
+    border-left-style: groove;
+    border-left-width: 5px;
+    border-right-style: groove;
+    border-right-width: 5px;
+    margin: 0;
+
+}
+h1 {
+    display: inline-block;
+    color: #7e7e7e;
+    font: 40px/40px 'Oswald', sans-serif;
+    margin: 0;
+    padding: 0 10px;
+}
+#wrapper{
+    background: #32b7d6;
+    margin: auto;
+    background-size: cover;
+    max-width: 960px;
+    top: 0;
+    left: 0;
+    border-width:5px;
+    border-style:groove;
+    border-radius: 1px;
+
+
+}
+
+.container{
+    font: 12px Tahoma, sans-serif;
+    color: aliceblue;
+    border-style: solid;
+    border-width: 5px;
+    border-color: aquamarine;
+    background: #319dbc;
+
+}
+.buttonGroup button{
+    padding: 10px 24px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #29c5e6;
+    border: none;
+    height: 32px;
+    font-family: 'Oswald', sans-serif;
+}
+.buttonGroup button:hover{
+    border-style: dashed;
+    border-width: 1px;
+    border-color: aliceblue;
+    background: #318cab;
+    color: white;
+}
+nav a {
+    text-decoration: none;
+}
+
+nav ul {
+    margin: 0;
+    padding: 10%;
+}
+
+nav li {
+    list-style-position: inside;
+    font: 14px 'Oswald', sans-serif;
+
+}
+.btn span.icon {
+    background: url(../images/delorean-04-512.png) no-repeat;
+    float: left;
+    width: 10px;
+    height: 40px;
+}
