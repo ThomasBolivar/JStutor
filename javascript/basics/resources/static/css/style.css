@@ -11,6 +11,7 @@ body {
     margin: 0;
 
 }
+
 h1 {
     display: inline-block;
     color: #7e7e7e;
@@ -18,21 +19,22 @@ h1 {
     margin: 0;
     padding: 0 10px;
 }
-#wrapper{
+
+#wrapper {
     background: #32b7d6;
     margin: auto;
     background-size: cover;
     max-width: 960px;
     top: 0;
     left: 0;
-    border-width:5px;
-    border-style:groove;
+    border-width: 5px;
+    border-style: groove;
     border-radius: 1px;
 
 
 }
 
-.container{
+.container {
     font: 12px Tahoma, sans-serif;
     color: aliceblue;
     border-style: solid;
@@ -41,7 +43,8 @@ h1 {
     background: #319dbc;
 
 }
-.buttonGroup button{
+
+.buttonGroup button {
     padding: 10px 24px;
     cursor: pointer;
     color: #fff;
@@ -50,13 +53,15 @@ h1 {
     height: 32px;
     font-family: 'Oswald', sans-serif;
 }
-.buttonGroup button:hover{
+
+.buttonGroup button:hover {
     border-style: dashed;
     border-width: 1px;
     border-color: aliceblue;
     background: #318cab;
     color: white;
 }
+
 nav a {
     text-decoration: none;
 }
@@ -71,6 +76,7 @@ nav li {
     font: 14px 'Oswald', sans-serif;
 
 }
+
 .btn span.icon {
     background: url(../images/delorean-04-512.png) no-repeat;
     float: left;
