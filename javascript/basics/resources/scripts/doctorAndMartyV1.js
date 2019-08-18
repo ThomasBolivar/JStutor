@@ -54,7 +54,7 @@ var marty = new McFly();
 var marty2 = new McFly();
 doc.addMcFly(marty);
 doc.addMcFly(marty2);
-
+doc.createTimeTravelMachine();
 function proceedWithTimeTravel() {
   doc.createTimeTravelMachine();
 
