@@ -30,7 +30,6 @@ function JopaPromise(executor) {
  * listener будет выполнен только тогда, когда executor выдаст скалярное значение и это значение передасться в listener
  * Listener может возвращать, как скалярное значение, так и JopaPromise
  * Функция вызова then возвращает Promise, он будет ?resolved?, когда listener вернёт скалярное значение
- *
  */
 JopaPromise.prototype.then = function (listener) {
     console.log("Call then");
@@ -41,10 +40,8 @@ JopaPromise.prototype.then = function (listener) {
             resolve(currentResult);
 
         });
-    } else if (this.currentStatus === PENDING) {
-        while(PENDING){
-
-        }
+    }
+    if (this.currentStatus === PENDING) {
         return new JopaPromise(function (resolve) {
         });
     }
