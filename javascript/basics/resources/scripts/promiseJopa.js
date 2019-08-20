@@ -6,13 +6,19 @@
  *
  *
  * */
-
+var PENDING = "PENDING";
+var RESOLVED = "RESOLVED";
 
 function JopaPromise(executor) {
+    this.currentStatus = PENDING;
+    this.result = undefined;
+    var self = this;
+    console.log("Call JopaPromise", this.currentStatus);
 
     function resolve(value) {
-        console.log("bla bla bla", value);
-
+        self.result = value;
+        console.log("Call resolve", self.result);
+        self.currentStatus = RESOLVED;
     }
 
     executor(resolve);
@@ -27,14 +33,36 @@ function JopaPromise(executor) {
  *
  */
 JopaPromise.prototype.then = function (listener) {
+    console.log("Call then");
+    if (this.currentStatus === RESOLVED) {
+        var currentResult = listener(this.result);
+        return new JopaPromise(function (resolve) {
+            console.log(currentResult);
+            resolve(currentResult);
 
-    return new JopaPromise(function (resolve) {
-        resolve(listener);
-    });
+        });
+    } else if (this.currentStatus === PENDING) {
+        while(PENDING){
+
+        }
+        return new JopaPromise(function (resolve) {
+        });
+    }
+
 
 };
 
 
 var promise = new JopaPromise(function (resolve) {
-    resolve("bla");
+    console.log("Call executor");
+    // resolve("1");
+      setTimeout(function () {
+            resolve("1");
+        }, 1)
+}).then(function (result) {
+    console.log("Call listener, with result: ", result);
+    return 2;
+}).then(function (result2) {
+    console.log("Call listener 2, with result: ", result2);
+    return 3;
 });
