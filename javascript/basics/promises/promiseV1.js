@@ -4,20 +4,21 @@
  *
  */
 
-const  PENDING = 'PENDING';
-const  RESOLVED = 'RESOLVED';
+const PENDING = 'PENDING';
+const RESOLVED = 'RESOLVED';
 
 function MyPromise(executor) {
-let  state = PENDING;
-let value;
-function resolve (newValue ){
-    state = RESOLVED;
-    value = newValue;
-    return new MyPromise(resolve())
-}
-executor(resolve);
-}
+    let state = PENDING;
+    let value;
 
+    function resolve(newValue) {
+        state = RESOLVED;
+        value = newValue;
+        return new MyPromise(resolve())
+    }
+
+    executor(resolve);
+}
 
 
 console.log("Start");

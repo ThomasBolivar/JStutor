@@ -18,38 +18,38 @@ const promise = new Promise((resolve,reject)=>{
                 name: "User Information",
                 port: 8080,
                 status: 200
-            }
+            };
             resolve(backendData);
             console.log(promise);
-           
+
 
         },2000);
 
 
 
-});
-
-promise.then(data=>{
+}).then(data=>{
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             data.isModified=true;
             resolve(data);
         },2000)
     });
-    
+
 }).then(clientData=>{
     console.log('Data recieved', clientData)
     clientData.modifiedByPromise = true;
     return clientData;
-    
+
 })
-.then(clientData=>{
+    .then(clientData=>{
         console.log("Here's modified by promsie Data: ", clientData);
 
-}).catch(err=>console.error('Error',err))
-.finally(()=>{
-    console.log('Finally!');
-});
+    }).catch(err=>console.error('Error',err))
+    .finally(()=>{
+        console.log('Finally!');
+    });
+
+
 
 
 const sleep = ms => new Promise(resolve =>{
