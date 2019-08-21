@@ -6,33 +6,20 @@
  *
  *
  * */
-
-
 var PENDING = "PENDING";
 var RESOLVED = "RESOLVED";
 
 function JopaPromise(executor) {
-    console.log("Call JopaPromise");
+    this.currentStatus = PENDING;
+    this.result = undefined;
     var self = this;
-    console.log(self);
-    self.currentStatus = PENDING;
-    console.log("Current status:" + self.currentStatus);
-    self.result = undefined;
-    console.log("Current result: ", self.result);
-
+    console.log("Call JopaPromise", this.currentStatus);
 
     function resolve(value) {
-        console.log("Call resolve");
         self.result = value;
-        console.log("undefined");
-
-        console.log("Result value: ", self.result);
+        console.log("Call resolve", self.result);
         self.currentStatus = RESOLVED;
-        console.log("Current status:" + self.currentStatus);
-
     }
-
-    console.log("Before executor");
 
     executor(resolve);
 }
@@ -44,17 +31,9 @@ function JopaPromise(executor) {
  * Listener может возвращать, как скалярное значение, так и JopaPromise
  * Функция вызова then возвращает Promise, он будет ?resolved?, когда listener вернёт скалярное значение
  */
-
 JopaPromise.prototype.then = function (listener) {
     console.log("Call then");
-    if (this.currentStatus === PENDING) {
-        console.log("Current status: ", this.currentStatus);
-        console.log("Returning new JopaPromise");
-        return new JopaPromise(function (resolve) {
-        });
-    }
     if (this.currentStatus === RESOLVED) {
-        console.log("Current status: ", this.currentStatus);
         var currentResult = listener(this.result);
         return new JopaPromise(function (resolve) {
             console.log(currentResult);
@@ -62,17 +41,21 @@ JopaPromise.prototype.then = function (listener) {
 
         });
     }
+    if (this.currentStatus === PENDING) {
+        return new JopaPromise(function (resolve) {
+        });
+    }
 
 
 };
 
+
 var promise = new JopaPromise(function (resolve) {
     console.log("Call executor");
-    //resolve("1");
-    setTimeout(function () {
-        console.log("Inside timeout");
-        resolve("1");
-    }, 1000)
+    // resolve("1");
+      setTimeout(function () {
+            resolve("1");
+        }, 1)
 }).then(function (result) {
     console.log("Call listener, with result: ", result);
     return 2;
@@ -80,4 +63,3 @@ var promise = new JopaPromise(function (resolve) {
     console.log("Call listener 2, with result: ", result2);
     return 3;
 });
-console.log(promise);
