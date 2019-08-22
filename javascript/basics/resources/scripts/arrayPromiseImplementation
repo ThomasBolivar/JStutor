@@ -14,7 +14,6 @@ function JopaPromise(executor) {
     self.listenersArray = [];
     self.currentStatus = PENDING;
     self.result = undefined;
-    var self = this;
     console.log("Call JopaPromise", self.currentStatus);
 
     function resolve(value) {
@@ -39,8 +38,8 @@ function JopaPromise(executor) {
 JopaPromise.prototype.then = function (listener) {
     console.log("Call then");
 
-        this.listenersArray.push(listener);
-        return this;
+    this.listenersArray.push(listener);
+    return this;
 
     /* if (this.currentStatus === RESOLVED) {
          var currentResult = listener(this.result);
@@ -72,5 +71,6 @@ var promise = new JopaPromise(function (resolve) {
     console.log("Call listener 2, with result: ", result2);
     return 3;
 });
+
 
 

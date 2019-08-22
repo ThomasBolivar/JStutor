@@ -10,21 +10,15 @@ var PENDING = "PENDING";
 var RESOLVED = "RESOLVED";
 
 function JopaPromise(executor) {
-    var self = this;
-    self.currentStatus = PENDING;
-    self.result = this.currentResults;
+    console.log("Inside JOPApromise");
+    console.log("___________________");
+    this.currentStatus = PENDING;
+
     console.log("Call JopaPromise", this.currentStatus);
 
-    function resolve(value) {
-        self.result = value;
-        console.log("Call resolve", self.result);
-        self.currentStatus = RESOLVED;
-        self.thenListener(self.result);
+    this.resolve = this.resolve.bind(this);
+    executor(this.resolve);
 
-    }
-
-
-    executor(resolve);
 }
 
 /**
@@ -34,7 +28,14 @@ function JopaPromise(executor) {
  * Listener может возвращать, как скалярное значение, так и JopaPromise
  * Функция вызова then возвращает Promise, он будет ?resolved?, когда listener вернёт скалярное значение
  */
+JopaPromise.prototype.resolve = function (value) {
+    console.log("Inside resolve!");
+    this.result = value;
+    this.currentStatus = RESOLVED;
+    console.log("Current status", this.currentStatus);
+    this.thenListener(this.result);
 
+};
 JopaPromise.prototype.then = function (listener) {
     console.log("Call then");
 
@@ -42,19 +43,17 @@ JopaPromise.prototype.then = function (listener) {
         this.currentResults = listener(this.result);
         var currentResult = this.currentResults;
         return new JopaPromise(function (resolve) {
-            console.log("Current result: ",currentResult);
+            console.log("Current result: ", currentResult);
             resolve(currentResult);
         });
     }
     if (this.currentStatus === PENDING) {
         this.thenListener = listener;
+        var a = this.thenListener(this.result);
         return new JopaPromise(function (resolve) {
-            console.log("JOPA");
 
         });
-
     }
-
 };
 
 
@@ -62,13 +61,17 @@ var promise = new JopaPromise(function (resolve) {
     console.log("Call executor");
     // resolve("1");
     setTimeout(function () {
-
-        resolve("ВОДКА");
-    }, 1)
+        console.log("Inside timeout");
+        resolve("JOPA");
+    }, 1000)
 }).then(function (result) {
     console.log("Call listener, with result: ", result);
-    return "Держи водку!";
+
+    return "JOPA2";
 }).then(function (result2) {
     console.log("Call listener 2, with result: ", result2);
-    return "Что-то пусто :(";
+    return "JOPA3";
+}).then(function (result3) {
+    console.log("Call listener 3, with result: ", result3);
+    return "JOPA4";
 });
