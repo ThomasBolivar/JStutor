@@ -13,19 +13,17 @@ function JopaPromise(executor) {
     this.currentStatus = PENDING;
     this.result = undefined;
     this.thenListener = undefined;
-    var self = this;
-    var resolve = function (value) {
-        self.result = value;
-        console.log("Call resolve", self.result);
-        self.currentStatus = RESOLVED;
-        var a = self.thenListener(self.result);
+    this.thenResolve = undefined;
+    this.resolve = function (value) {
+        this.result = value;
+        console.log("Call resolve", this.result);
+        this.currentStatus = RESOLVED;
+        var a = this.thenListener(this.result);
         console.log(a);
-        //resolve(a);
-    };
-
+        this.thenResolve(a);
+      };
     this.then = function (listener) {
         console.log("Call then");
-        /*
             if (this.currentStatus === RESOLVED) {
                 this.currentResults = listener(this.result);
                 var currentResult = this.currentResults;
@@ -33,11 +31,13 @@ function JopaPromise(executor) {
                     console.log("Current result: ", currentResult);
                     resolve(currentResult);
                 });
-            }*/
+            }
         if (this.currentStatus === PENDING) {
             this.thenListener = listener;
+            var self = this;
             return new JopaPromise(function (resolve) {
                 console.log("JOPA");
+                self.thenResolve = resolve;
             });
 
         }
@@ -45,7 +45,10 @@ function JopaPromise(executor) {
     };
 
 
-    executor(resolve);
+    console.log("Call JopaPromise", this.currentStatus);
+
+
+    executor(this.resolve.bind(this));
 }
 
 /**
@@ -64,7 +67,7 @@ var promiseMagaz = new JopaPromise(
         console.log("Call executor");
         // resolve("1");
         setTimeout(function () {
-
+            console.log("After timeout");
             resolve("ВОДКА");
         }, 1000)
     });
@@ -87,3 +90,10 @@ var ment = alkah02.then(
         console.log("ment , with result: ", result2);
         return "Пакуем :)";
     });
+
+
+setTimeout(
+
+    function() {
+        console.log("JOPA",promiseMagaz, alkah01);
+    },2000);
