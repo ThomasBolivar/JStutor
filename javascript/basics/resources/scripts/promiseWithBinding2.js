@@ -13,12 +13,15 @@ function JopaPromise(executor) {
     console.log("Inside JOPApromise");
     console.log("___________________");
     this.currentStatus = PENDING;
+
     console.log("Call JopaPromise", this.currentStatus);
-    this.resolve = JopaPromise.prototype.resolve.bind(this);
+
+    this.resolve = resolve.bind(this);
     executor(this.resolve);
 
-}
 
+
+}
 
 /**
  * then является функцией, которая имеет в качестве аргумента listener.
@@ -27,18 +30,14 @@ function JopaPromise(executor) {
  * Listener может возвращать, как скалярное значение, так и JopaPromise
  * Функция вызова then возвращает Promise, он будет ?resolved?, когда listener вернёт скалярное значение
  */
-JopaPromise.prototype.resolve = function (value) {
+function resolve(value) {
     console.log("Inside resolve!");
     this.result = value;
     this.currentStatus = RESOLVED;
     console.log("Current status", this.currentStatus);
-    this.result = this.thenListener(this.result);
-    console.log("Value inside resolve function: " + this.result);
+    console.log("Next value is: ", this.result);
 
-    this.thenListener.call(this, this.result);
-
-
-};
+}
 
 JopaPromise.prototype.then = function (listener) {
     console.log("Call then");

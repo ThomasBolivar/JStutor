@@ -1,0 +1,75 @@
+Index: javascript/basics/resources/scripts/promiseWithBinding.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- javascript/basics/resources/scripts/promiseWithBinding.js	(date 1566482362328)
++++ javascript/basics/resources/scripts/promiseWithBinding.js	(date 1566482362328)
+@@ -10,12 +10,15 @@
+ var RESOLVED = "RESOLVED";
+ 
+ function JopaPromise(executor) {
+-
++    console.log("Inside JOPApromise");
++    console.log("___________________");
+     this.currentStatus = PENDING;
++
+     console.log("Call JopaPromise", this.currentStatus);
+ 
+     this.resolve = this.resolve.bind(this);
+     executor(this.resolve);
++
+ }
+ 
+ /**
+@@ -26,10 +29,12 @@
+  * Функция вызова then возвращает Promise, он будет ?resolved?, когда listener вернёт скалярное значение
+  */
+ JopaPromise.prototype.resolve = function (value) {
++    console.log("Inside resolve!");
+     this.result = value;
+-    console.log("Call resolve", this.result);
+     this.currentStatus = RESOLVED;
+-    return this.thenListener(this.result);
++    console.log("Current status", this.currentStatus);
++
++
+ };
+ JopaPromise.prototype.then = function (listener) {
+     console.log("Call then");
+@@ -44,11 +49,8 @@
+     }
+     if (this.currentStatus === PENDING) {
+         this.thenListener = listener;
+-        console.log();
+-        return new JopaPromise(function (resolve) {
+-            console.log("JOPA");
+-
+-        });
++        var a = this.thenListener(this.result);
++        return this.resolve(a);
+ 
+     }
+ 
+@@ -59,13 +61,17 @@
+     console.log("Call executor");
+     // resolve("1");
+     setTimeout(function () {
+-        resolve("ВОДКА");
+-    }, 1)
++        console.log("Inside timeout");
++        resolve("JOPA");
++    }, 1000)
+ }).then(function (result) {
+     console.log("Call listener, with result: ", result);
+ 
+-    return "Держи водку!";
++    return "JOPA2";
+ }).then(function (result2) {
+     console.log("Call listener 2, with result: ", result2);
+-    return "Что-то пусто :(";
++    return "JOPA3";
++}).then(function (result3) {
++    console.log("Call listener 3, with result: ", result3);
++    return "JOPA4";
+ });

@@ -10,18 +10,39 @@ var PENDING = "PENDING";
 var RESOLVED = "RESOLVED";
 
 function JopaPromise(executor) {
+    this.currentStatus = PENDING;
+    this.result = undefined;
+    this.thenListener = undefined;
     var self = this;
-    self.currentStatus = PENDING;
-    self.result = this.currentResults;
-    console.log("Call JopaPromise", this.currentStatus);
-
-    function resolve(value) {
+    var resolve = function (value) {
         self.result = value;
         console.log("Call resolve", self.result);
         self.currentStatus = RESOLVED;
-        self.thenListener(self.result);
+        var a = self.thenListener(self.result);
+        console.log(a);
+        //resolve(a);
+    };
 
-    }
+    this.then = function (listener) {
+        console.log("Call then");
+        /*
+            if (this.currentStatus === RESOLVED) {
+                this.currentResults = listener(this.result);
+                var currentResult = this.currentResults;
+                return new JopaPromise(function (resolve) {
+                    console.log("Current result: ", currentResult);
+                    resolve(currentResult);
+                });
+            }*/
+        if (this.currentStatus === PENDING) {
+            this.thenListener = listener;
+            return new JopaPromise(function (resolve) {
+                console.log("JOPA");
+            });
+
+        }
+
+    };
 
 
     executor(resolve);
@@ -35,40 +56,34 @@ function JopaPromise(executor) {
  * Функция вызова then возвращает Promise, он будет ?resolved?, когда listener вернёт скалярное значение
  */
 
-JopaPromise.prototype.then = function (listener) {
-    console.log("Call then");
-
-    if (this.currentStatus === RESOLVED) {
-        this.currentResults = listener(this.result);
-        var currentResult = this.currentResults;
-        return new JopaPromise(function (resolve) {
-            console.log("Current result: ",currentResult);
-            resolve(currentResult);
-        });
-    }
-    if (this.currentStatus === PENDING) {
-        this.thenListener = listener;
-        return new JopaPromise(function (resolve) {
-            console.log("JOPA");
-
-        });
-
-    }
-
-};
 
 
-var promise = new JopaPromise(function (resolve) {
-    console.log("Call executor");
-    // resolve("1");
-    setTimeout(function () {
 
-        resolve("ВОДКА");
-    }, 1)
-}).then(function (result) {
-    console.log("Call listener, with result: ", result);
-    return "Держи водку!";
-}).then(function (result2) {
-    console.log("Call listener 2, with result: ", result2);
-    return "Что-то пусто :(";
-});
+var promiseMagaz = new JopaPromise(
+    function (resolve) {
+        console.log("Call executor");
+        // resolve("1");
+        setTimeout(function () {
+
+            resolve("ВОДКА");
+        }, 1000)
+    });
+
+var alkah01 = promiseMagaz.then(
+    function (result) {
+        console.log("alkah01, with result: ", result);
+        return "Держи водку!";
+    });
+
+var alkah02 = alkah01.then(
+    function (result2) {
+        console.log("alkah02, with result: ", result2);
+        return "Что-то пусто :(";
+    });
+
+
+var ment = alkah02.then(
+    function (result2) {
+        console.log("ment , with result: ", result2);
+        return "Пакуем :)";
+    });

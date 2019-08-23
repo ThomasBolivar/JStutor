@@ -21,6 +21,7 @@ function JopaPromise(executor) {
         console.log("Call resolve", self.result);
         self.currentStatus = RESOLVED;
         for (var i = 0; i < self.listenersArray.length; i++) {
+            console.log("inside for loop");
             self.result = self.listenersArray[i](self.result);
         }
     }
