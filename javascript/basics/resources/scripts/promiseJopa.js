@@ -18,20 +18,26 @@ function JopaPromise(executor) {
         this.result = value;
         console.log("Call resolve", this.result);
         this.currentStatus = RESOLVED;
-        var a = this.thenListener(this.result);
-        console.log(a);
-        this.thenResolve(a);
-      };
+        if (this.thenListener !== undefined) {
+            var a = this.thenListener(this.result);
+            console.log(a);
+            this.thenResolve(a);
+        }
+        else{
+            this.currentStatus=PENDING;
+        }
+
+    };
     this.then = function (listener) {
         console.log("Call then");
-            if (this.currentStatus === RESOLVED) {
-                this.currentResults = listener(this.result);
-                var currentResult = this.currentResults;
-                return new JopaPromise(function (resolve) {
-                    console.log("Current result: ", currentResult);
-                    resolve(currentResult);
-                });
-            }
+        if (this.currentStatus === RESOLVED) {
+            this.currentResults = listener(this.result);
+            var currentResult = this.currentResults;
+            return new JopaPromise(function (resolve) {
+                console.log("Current result: ", currentResult);
+                resolve(currentResult);
+            });
+        }
         if (this.currentStatus === PENDING) {
             this.thenListener = listener;
             var self = this;
@@ -92,8 +98,8 @@ var ment = alkah02.then(
     });
 
 
+/*
 setTimeout(
-
-    function() {
-        console.log("JOPA",promiseMagaz, alkah01);
-    },2000);
+    function () {
+        console.log("JOPA", promiseMagaz, alkah01);
+    }, 2000);*/

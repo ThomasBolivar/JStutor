@@ -1,7 +1,8 @@
-var promise = new Promise(function(resolve, reject) {
+var promise = new Promise(function(resolve) {
     setTimeout(function() {
+        console.log("inside timeout");
         resolve('hello world');
-    }, 2000);
+    }, 500);
 });
 
 promise.then(function(data) {
