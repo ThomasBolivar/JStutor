@@ -14,6 +14,7 @@ function JopaPromise(executor) {
     this.result = undefined;
     this.thenListener = undefined;
     this.thenResolve = undefined;
+
     this.resolve = function (value) {
         this.result = value;
         this.currentStatus = RESOLVED;
@@ -23,9 +24,8 @@ function JopaPromise(executor) {
             console.log(a);
             this.thenResolve(a);
         }
-
-
     };
+
     this.then = function (listener) {
         console.log("Call then");
 
@@ -62,7 +62,7 @@ function JopaPromise(executor) {
 var promiseMagaz = new JopaPromise(
     function (resolve) {
         console.log("Call executor");
-       // resolve("1");
+        // resolve("1");
         setTimeout(function () {
             console.log("After timeout");
             resolve("ВОДКА");

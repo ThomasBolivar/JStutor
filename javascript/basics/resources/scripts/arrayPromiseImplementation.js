@@ -42,20 +42,6 @@ JopaPromise.prototype.then = function (listener) {
     this.listenersArray.push(listener);
     return this;
 
-    /* if (this.currentStatus === RESOLVED) {
-         var currentResult = listener(this.result);
-         return new JopaPromise(function (resolve) {
-             console.log(currentResult);
-             resolve(currentResult);
-
-         });
-     }
-     if (this.currentStatus === PENDING) {
-         return new JopaPromise(function (resolve) {
-         });
-     }*/
-
-
 };
 
 
