@@ -70,7 +70,7 @@ function JopaPromise(executor) {
 var promiseMagaz = new JopaPromise(
     function (resolve) {
         console.log("Call executor");
-        //resolve("ВОДКА");
+        // resolve("ВОДКА");
     setTimeout(function () {
             console.log("After timeout");
             resolve("ВОДКА");
