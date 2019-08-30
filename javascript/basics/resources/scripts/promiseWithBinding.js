@@ -63,11 +63,11 @@ JopaPromise.prototype.then = function (listener) {
 
 var promise = new JopaPromise(function (resolve) {
     console.log("Call executor");
-    // resolve("1");
-    setTimeout(function () {
+     resolve("1");
+    /*setTimeout(function () {
         console.log("Inside timeout");
         resolve("JOPA");
-    }, 1000)
+    }, 1000)*/
 }).then(function (result) {
     console.log("Call listener, with result: ", result);
 

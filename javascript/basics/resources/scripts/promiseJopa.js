@@ -18,6 +18,7 @@ function JopaPromise(executor) {
     this.resolve = function (value) {
         this.result = value;
         this.currentStatus = RESOLVED;
+        console.log("Current status ", this.currentStatus);
         console.log("Call resolve", this.result);
         if (this.thenListener !== undefined) {
             var a = this.thenListener(this.result);
@@ -38,7 +39,14 @@ function JopaPromise(executor) {
             });
 
         }
-
+        else {
+            this.currentResults = listener(this.result);
+            var currentResult = this.currentResults;
+            return new JopaPromise(function (resolve) {
+                console.log("Current result: ", currentResult);
+                resolve(currentResult);
+            });
+        }
     };
 
 
@@ -62,8 +70,8 @@ function JopaPromise(executor) {
 var promiseMagaz = new JopaPromise(
     function (resolve) {
         console.log("Call executor");
-        // resolve("1");
-        setTimeout(function () {
+        //resolve("ВОДКА");
+    setTimeout(function () {
             console.log("After timeout");
             resolve("ВОДКА");
         }, 1000)

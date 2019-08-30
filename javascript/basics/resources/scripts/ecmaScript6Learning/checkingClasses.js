@@ -1,5 +1,5 @@
 
-class Person{
+ class Person{
     constructor(){
 
     }
@@ -13,7 +13,6 @@ class Person{
         console.log("I can do something");
     }
 }
-
 class User extends Person{
     constructor(firstName,lastName){
         super();
@@ -35,8 +34,6 @@ class User extends Person{
 
 
 }
-export {User};
-/*
 
 
 let user = new User("John","Doe");
@@ -45,4 +42,4 @@ user.eat();
 user.canWalk();
 user.move();
 User.getInformation();
-*/
+
