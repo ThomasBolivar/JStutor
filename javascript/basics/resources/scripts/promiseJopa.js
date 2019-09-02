@@ -22,14 +22,23 @@ function JopaPromise(executor) {
         console.log("Call resolve", this.result);
         if (this.thenListener !== undefined) {
             var a = this.thenListener(this.result);
+            if (a instanceof JopaPromise){
+                console.log("a variable is JopaPromise");
+                console.log("Inside a variable ", a);
+                var jopa=  this.thenResolve;
+                a.then(function (result) {
+                    jopa(result);
+                })
+
+            }
             console.log(a);
             this.thenResolve(a);
+
         }
     };
 
     this.then = function (listener) {
         console.log("Call then");
-
         if (this.currentStatus === PENDING) {
             this.thenListener = listener;
             var self = this;
@@ -39,7 +48,7 @@ function JopaPromise(executor) {
             });
 
         }
-        else {
+        if (this.currentStatus === RESOLVED) {
             this.currentResults = listener(this.result);
             var currentResult = this.currentResults;
             return new JopaPromise(function (resolve) {
@@ -51,7 +60,6 @@ function JopaPromise(executor) {
 
 
     console.log("Call JopaPromise", this.currentStatus);
-
 
     executor(this.resolve.bind(this));
 }
@@ -71,16 +79,21 @@ var promiseMagaz = new JopaPromise(
     function (resolve) {
         console.log("Call executor");
         // resolve("ВОДКА");
-    setTimeout(function () {
+        setTimeout(function () {
             console.log("After timeout");
             resolve("ВОДКА");
-        }, 1000)
+        }, 3000)
     });
 
 var alkah01 = promiseMagaz.then(
     function (result) {
-        console.log("alkah01, with result: ", result);
-        return "Держи водку!";
+        return new JopaPromise(function (resolve) {
+            setTimeout(function () {
+                console.log("alkah01, with result: ", result);
+                resolve("Держи водку!");
+            }, 2000);
+        })
+
     });
 
 var alkah02 = alkah01.then(
