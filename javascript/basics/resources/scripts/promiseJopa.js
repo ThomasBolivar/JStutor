@@ -18,13 +18,22 @@ function JopaPromise(executor) {
     this.resolve = function (value) {
         this.result = value;
         this.currentStatus = RESOLVED;
-        console.log("Current status ", this.currentStatus);
-        console.log("Call resolve", this.result);
+        // console.log("Current status ", this.currentStatus);
+        // console.log("Call resolve", this.result);
+        if(this.result instanceof JopaPromise){
+            var tempInstance = this.result;
+            this.currentStatus = PENDING;
+            var b = tempInstance.then(function(result){
+                return result;
+            });
+
+        }
+
         if (this.thenListener !== undefined) {
             var a = this.thenListener(this.result);
             if (a instanceof JopaPromise){
-                console.log("a variable is JopaPromise");
-                console.log("Inside a variable ", a);
+                // console.log("a variable is JopaPromise");
+                // console.log("Inside a variable ", a);
                 var jopa=  this.thenResolve;
                 a.then(function (result) {
                     jopa(result);
@@ -38,7 +47,7 @@ function JopaPromise(executor) {
     };
 
     this.then = function (listener) {
-        console.log("Call then");
+        // console.log("Call then");
         if (this.currentStatus === PENDING) {
             this.thenListener = listener;
             var self = this;
@@ -52,14 +61,14 @@ function JopaPromise(executor) {
             this.currentResults = listener(this.result);
             var currentResult = this.currentResults;
             return new JopaPromise(function (resolve) {
-                console.log("Current result: ", currentResult);
+                // console.log("Current result: ", currentResult);
                 resolve(currentResult);
             });
         }
     };
 
 
-    console.log("Call JopaPromise", this.currentStatus);
+    // console.log("Call JopaPromise", this.currentStatus);
 
     executor(this.resolve.bind(this));
 }
@@ -78,22 +87,23 @@ function JopaPromise(executor) {
 var promiseMagaz = new JopaPromise(
     function (resolve) {
         console.log("Call executor");
-        // resolve("ВОДКА");
-        setTimeout(function () {
+        resolve("ВОДКА");
+/*        setTimeout(function () {
             console.log("After timeout");
             resolve("ВОДКА");
-        }, 3000)
+        }, 3000)*/
     });
 
 var alkah01 = promiseMagaz.then(
     function (result) {
         return new JopaPromise(function (resolve) {
-            setTimeout(function () {
+
+            resolve("Держи водку!");
+            /*  setTimeout(function () {
                 console.log("alkah01, with result: ", result);
                 resolve("Держи водку!");
-            }, 2000);
+            }, 2000);*/
         })
-
     });
 
 var alkah02 = alkah01.then(
